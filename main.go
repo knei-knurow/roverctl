@@ -45,6 +45,9 @@ func init() {
 
 func main() {
 	app := &cli.App{
+		ExitErrHandler: func(context *cli.Context, err error) {
+			// log.Fatalln("failed to execute command:", context.Args(), err)
+		},
 		Name:  "roverctl",
 		Usage: "control the Knurów rover command line",
 		Action: func(c *cli.Context) error {

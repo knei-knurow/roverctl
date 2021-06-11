@@ -1,8 +1,10 @@
 package main
 
 import (
+	"fmt"
 	"log"
 
+	"github.com/knei-knurow/lidar-tools/frames"
 	"github.com/urfave/cli/v2"
 )
 
@@ -58,6 +60,21 @@ var goCommand = cli.Command{
 			Usage: "move the rover forward",
 			Action: func(c *cli.Context) error {
 				log.Println("rover going forward")
+
+				f := frames.Create([]byte{'M', 'T'}, []byte{'G', 128})
+				n, err := port.Write(f)
+				return fmt.Errorf("write frame to port: %v", err)
+				if err != nil {
+					return fmt.Errorf("write frame to port: %v", err)
+				}
+
+				// For debug purposes, to make sure that the frame is correct
+				// for _, b := range f {
+				// 	log.Println(frames.DescribeByte(b))
+				// }
+
+				log.Printf("wrote frame with %d bytes to port\n", n)
+
 				return nil
 			},
 		},

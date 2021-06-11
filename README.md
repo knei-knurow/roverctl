@@ -16,7 +16,7 @@ Example frames below.
 
 where:
 
-- S = speed, signed byte (from -128 to 127)
+- S = speed, signed byte (from 0 to 255)
 
 - CRC - calculated simple 8-bit CRC checksum of frame's all bytes (except the last byte, which is the CRC itself)
 
@@ -28,7 +28,7 @@ where:
 
 where:
 
-- D - degrees, signed byte (from -128 to 127)
+- D - degrees, signed byte (from 0 to 255)
 
 - CRC - calculated simple 8-bit CRC checksum of frame's all bytes (except the last byte, which is the CRC itself)
 
