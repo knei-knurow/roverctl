@@ -38,6 +38,10 @@ var turnCommand = cli.Command{
 var goCommand = cli.Command{
 	Name:  "go",
 	Usage: "move rover forward or backward",
+	OnUsageError: func(context *cli.Context, err error, isSubcommand bool) error {
+		log.Println("error:", err)
+		return nil
+	},
 	Before: func(c *cli.Context) error {
 		log.Println("before go command")
 		return nil
@@ -56,24 +60,30 @@ var goCommand = cli.Command{
 	},
 	Subcommands: []*cli.Command{
 		{
-			Name:  "forward",
+			Name: "forward",
+			Before: func(c *cli.Context) error {
+				log.Println("before go forward command")
+				return nil
+			},
+			After: func(c *cli.Context) error {
+				log.Println("after go forward command")
+				return nil
+			},
 			Usage: "move the rover forward",
+			OnUsageError: func(context *cli.Context, err error, isSubcommand bool) error {
+				log.Println("error:", err)
+				return nil
+			},
 			Action: func(c *cli.Context) error {
 				log.Println("rover going forward")
 
 				f := frames.Create([]byte{'M', 'T'}, []byte{'G', 128})
 				n, err := port.Write(f)
-				return fmt.Errorf("write frame to port: %v", err)
 				if err != nil {
-					return fmt.Errorf("write frame to port: %v", err)
+					return fmt.Errorf("failed to write frame to port: %v", err)
 				}
 
-				// For debug purposes, to make sure that the frame is correct
-				// for _, b := range f {
-				// 	log.Println(frames.DescribeByte(b))
-				// }
-
-				log.Printf("wrote frame with %d bytes to port\n", n)
+				log.Printf("wrote %d-byte frame to port\n", n)
 
 				return nil
 			},

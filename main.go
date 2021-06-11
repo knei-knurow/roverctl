@@ -45,18 +45,18 @@ func init() {
 
 func main() {
 	app := &cli.App{
-		ExitErrHandler: func(context *cli.Context, err error) {
-			// log.Fatalln("failed to execute command:", context.Args(), err)
-		},
 		Name:  "roverctl",
 		Usage: "control the Knurów rover command line",
-		Action: func(c *cli.Context) error {
-			log.Println("no commands passed (roverctl --help to show help)")
+		OnUsageError: func(context *cli.Context, err error, isSubcommand bool) error {
+			log.Println("error:", err)
 			return nil
 		},
 		Commands: []*cli.Command{
 			&goCommand,
 			&turnCommand,
+		},
+		CommandNotFound: func(c *cli.Context, command string) {
+			log.Printf("invalid command '%s'. See 'roverctl --help'\n", command)
 		},
 	}
 
