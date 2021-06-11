@@ -2,4 +2,4 @@ GC := go
 EXE := 
 
 all:
-	$(GC) build -o roverctl main.go
+	$(GC) build -o roverctl main.go movement.go

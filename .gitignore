@@ -1,3 +1,4 @@
 /roverctl
 *.exe
 .DS_Store
+.env
