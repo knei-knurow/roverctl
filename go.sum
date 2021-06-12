@@ -4,8 +4,14 @@ github.com/cpuguy83/go-md2man/v2 v2.0.0-20190314233015-f79a8a8ca69d/go.mod h1:ma
 github.com/jacobsa/go-serial v0.0.0-20180131005756-15cf729a72d4/go.mod h1:2RvX5ZjVtsznNZPEt4xwJXNJrM3VTZoQf7V6gk0ysvs=
 github.com/joho/godotenv v1.3.0 h1:Zjp+RcGpHhGlrMbJzXTrZZPrWj+1vfm90La1wgB6Bhc=
 github.com/joho/godotenv v1.3.0/go.mod h1:7hK45KPybAkOC6peb+G5yklZfMxEjkZhHbwpqxOKXbg=
+github.com/knei-knurow/frames v1.0.0 h1:IImxQbduh4cndmicvqSAzghaHHUMjWo1Whe5GZ7+kPU=
+github.com/knei-knurow/frames v1.0.0/go.mod h1:AlSXmIiJrGroKu/4wdnk/y6AcxqSXBDb4fk61xlE/cY=
+github.com/knei-knurow/frames v1.0.1 h1:3VYP41nyJp4ZxaUZiKh2YXv0ZozmNFkemB4NpfQ649c=
+github.com/knei-knurow/frames v1.0.1/go.mod h1:AlSXmIiJrGroKu/4wdnk/y6AcxqSXBDb4fk61xlE/cY=
 github.com/knei-knurow/lidar-tools v0.0.0-20210609091657-d0e8c8e9c834 h1:YNPsFVCsRhWIZOQSc29REup4a+eoVtE0GDvjWM0bBkU=
 github.com/knei-knurow/lidar-tools v0.0.0-20210609091657-d0e8c8e9c834/go.mod h1:xvNPRZSNjc4/B2mynXKFgMubsxoDI/CkUT5bIC8kjlE=
+github.com/knei-knurow/lidar-tools v0.0.0-20210611203933-770c521af757 h1:QvlcM7h1wj7ir+5uwC8Ni7If8BD6xqgY6g+s2ZQ8TwE=
+github.com/knei-knurow/lidar-tools v0.0.0-20210611203933-770c521af757/go.mod h1:xvNPRZSNjc4/B2mynXKFgMubsxoDI/CkUT5bIC8kjlE=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/russross/blackfriday/v2 v2.0.1 h1:lPqVAte+HuHNfhJ/0LC98ESWRz8afy9tM/0RK8m9o+Q=
 github.com/russross/blackfriday/v2 v2.0.1/go.mod h1:+Rmxgy9KzJVeS9/2gXHxylqXiyQDYRxCVz55jmeOWTM=

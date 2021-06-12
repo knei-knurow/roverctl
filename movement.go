@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/knei-knurow/lidar-tools/frames"
+	"github.com/knei-knurow/frames"
 	"github.com/urfave/cli/v2"
 )
 
@@ -77,7 +77,7 @@ var goCommand = cli.Command{
 			Action: func(c *cli.Context) error {
 				log.Println("rover going forward")
 
-				f := frames.Create([]byte{'M', 'T'}, []byte{'G', 128})
+				f := frames.Create([2]byte{'M', 'T'}, []byte{'G', 128})
 				n, err := port.Write(f)
 				if err != nil {
 					return fmt.Errorf("failed to write frame to port: %v", err)
