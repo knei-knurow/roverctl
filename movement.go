@@ -17,6 +17,14 @@ var turnCommand = cli.Command{
 			Usage: "turn the wheels left",
 			Action: func(c *cli.Context) error {
 				log.Println("rover turning left")
+
+				data := []byte{} // TODO: Make correct data
+				f := frames.Create([2]byte{'M', 'T'}, data)
+				_, err := port.Write(f)
+				if err != nil {
+					return fmt.Errorf("failed to write frame to port: %v", err)
+				}
+
 				return nil
 			},
 		},
@@ -25,6 +33,14 @@ var turnCommand = cli.Command{
 			Usage: "turn the wheels right",
 			Action: func(c *cli.Context) error {
 				log.Println("rover turning right")
+
+				data := []byte{} // TODO: Make correct data
+				f := frames.Create([2]byte{'M', 'T'}, data)
+				_, err := port.Write(f)
+				if err != nil {
+					return fmt.Errorf("failed to write frame to port: %v", err)
+				}
+
 				return nil
 			},
 		},
@@ -42,14 +58,6 @@ var goCommand = cli.Command{
 		log.Println("error:", err)
 		return nil
 	},
-	Before: func(c *cli.Context) error {
-		log.Println("before go command")
-		return nil
-	},
-	After: func(c *cli.Context) error {
-		log.Println("after go command")
-		return nil
-	},
 	Flags: []cli.Flag{
 		&cli.IntFlag{
 			Name:    "speed",
@@ -60,15 +68,7 @@ var goCommand = cli.Command{
 	},
 	Subcommands: []*cli.Command{
 		{
-			Name: "forward",
-			Before: func(c *cli.Context) error {
-				log.Println("before go forward command")
-				return nil
-			},
-			After: func(c *cli.Context) error {
-				log.Println("after go forward command")
-				return nil
-			},
+			Name:  "forward",
 			Usage: "move the rover forward",
 			OnUsageError: func(context *cli.Context, err error, isSubcommand bool) error {
 				log.Println("error:", err)
@@ -77,13 +77,12 @@ var goCommand = cli.Command{
 			Action: func(c *cli.Context) error {
 				log.Println("rover going forward")
 
-				f := frames.Create([2]byte{'M', 'T'}, []byte{'G', 128})
-				n, err := port.Write(f)
+				data := []byte{} // TODO: Make correct data
+				f := frames.Create([2]byte{'M', 'T'}, data)
+				_, err := port.Write(f)
 				if err != nil {
 					return fmt.Errorf("failed to write frame to port: %v", err)
 				}
-
-				log.Printf("wrote %d-byte frame to port\n", n)
 
 				return nil
 			},
@@ -93,6 +92,14 @@ var goCommand = cli.Command{
 			Usage: "move the rover backward",
 			Action: func(c *cli.Context) error {
 				log.Println("rover going backward")
+
+				data := []byte{} // TODO: Make correct data
+				f := frames.Create([2]byte{'M', 'T'}, data)
+				_, err := port.Write(f)
+				if err != nil {
+					return fmt.Errorf("failed to write frame to port: %v", err)
+				}
+
 				return nil
 			},
 		},
