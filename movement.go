@@ -77,7 +77,7 @@ var goCommand = cli.Command{
 				body := map[string]interface{}{
 					"type":      "go",
 					"direction": "stop",
-					"speed":     0,
+					"speed":     255,
 				}
 
 				err := requests.PostRequest(addr+"/move", body)
