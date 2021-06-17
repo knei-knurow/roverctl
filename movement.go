@@ -8,6 +8,93 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
+var goCommand = cli.Command{
+	Name:  "go",
+	Usage: "move rover forward or backward",
+	OnUsageError: func(context *cli.Context, err error, isSubcommand bool) error {
+		log.Println("error:", err)
+		return nil
+	},
+	Flags: []cli.Flag{
+		&cli.IntFlag{
+			Name:    "speed",
+			Aliases: []string{"s"},
+			Value:   0,
+			Usage:   "some speed parameter",
+		},
+	},
+	Subcommands: []*cli.Command{
+		{
+			Name:  "forward",
+			Usage: "move the rover forward",
+			OnUsageError: func(context *cli.Context, err error, isSubcommand bool) error {
+				log.Println("error:", err)
+				return nil
+			},
+			Action: func(c *cli.Context) error {
+				log.Println("rover going forward")
+
+				body := map[string]interface{}{
+					"type":      "go",
+					"direction": "forward",
+					"speed":     c.Int("speed"),
+				}
+
+				err := requests.PostRequest(addr+"/move", body)
+				if err != nil {
+					return fmt.Errorf("make request: %v", err)
+				}
+
+				return nil
+			},
+		},
+		{
+			Name:  "backward",
+			Usage: "move the rover backward",
+			Action: func(c *cli.Context) error {
+				log.Println("rover going backward")
+
+				body := map[string]interface{}{
+					"type":      "go",
+					"direction": "backward",
+					"speed":     c.Int("speed"),
+				}
+
+				err := requests.PostRequest(addr+"/move", body)
+				if err != nil {
+					return fmt.Errorf("make request: %v", err)
+				}
+
+				return nil
+			},
+		},
+		{
+			Name:  "stop",
+			Usage: "stop the rover",
+			Action: func(c *cli.Context) error {
+				log.Println("rover stopping")
+
+				body := map[string]interface{}{
+					"type":      "go",
+					"direction": "stop",
+					"speed":     0,
+				}
+
+				err := requests.PostRequest(addr+"/move", body)
+				if err != nil {
+					return fmt.Errorf("make request: %v", err)
+				}
+
+				return nil
+			},
+		},
+	},
+	Action: func(c *cli.Context) error {
+		log.Printf("no direction passed (forward/backward)")
+		return nil
+	},
+}
+
 var turnCommand = cli.Command{
 	Name:  "turn",
 	Usage: "turn motors using mounted servos. Bear in mind that the rover should be moving while turning",
@@ -59,69 +146,6 @@ var turnCommand = cli.Command{
 	},
 	Action: func(c *cli.Context) error {
 		log.Printf("no direction passed (left/right)")
-		return nil
-	},
-}
-
-var goCommand = cli.Command{
-	Name:  "go",
-	Usage: "move rover forward or backward",
-	OnUsageError: func(context *cli.Context, err error, isSubcommand bool) error {
-		log.Println("error:", err)
-		return nil
-	},
-	Flags: []cli.Flag{
-		&cli.IntFlag{
-			Name:    "speed",
-			Aliases: []string{"s"},
-			Value:   0,
-			Usage:   "some speed parameter",
-		},
-	},
-	Subcommands: []*cli.Command{
-		{
-			Name:  "forward",
-			Usage: "move the rover forward",
-			OnUsageError: func(context *cli.Context, err error, isSubcommand bool) error {
-				log.Println("error:", err)
-				return nil
-			},
-			Action: func(c *cli.Context) error {
-				log.Println("rover going forward")
-
-				body := map[string]interface{}{
-					"speed": c.Int("speed"),
-				}
-
-				err := requests.PostRequest(addr+"/move", body)
-				if err != nil {
-					return fmt.Errorf("make request: %v", err)
-				}
-
-				return nil
-			},
-		},
-		{
-			Name:  "backward",
-			Usage: "move the rover backward",
-			Action: func(c *cli.Context) error {
-				log.Println("rover going backward")
-
-				body := map[string]interface{}{
-					"speed": c.Int("speed"),
-				}
-
-				err := requests.PostRequest(addr+"/move", body)
-				if err != nil {
-					return fmt.Errorf("make request: %v", err)
-				}
-
-				return nil
-			},
-		},
-	},
-	Action: func(c *cli.Context) error {
-		log.Printf("no direction passed (forward/backward)")
 		return nil
 	},
 }
