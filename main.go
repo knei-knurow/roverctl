@@ -28,6 +28,7 @@ func init() {
 	port = os.Getenv("ROVERD_PORT")
 
 	addr = ip + ":" + port
+	log.Println("addr:", addr)
 }
 
 func main() {
