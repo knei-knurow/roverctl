@@ -106,46 +106,19 @@ var turnCommand = cli.Command{
 			Usage:   "degrees",
 		},
 	},
-	Subcommands: []*cli.Command{
-		{
-			Name:  "left",
-			Usage: "turn the wheels left",
-			Action: func(c *cli.Context) error {
-				log.Println("rover turning left")
-
-				body := map[string]interface{}{
-					"turn": c.Int("degrees"),
-				}
-
-				err := requests.PostRequest(addr+"/move", body)
-				if err != nil {
-					return fmt.Errorf("make request: %v", err)
-				}
-
-				return nil
-			},
-		},
-		{
-			Name:  "right",
-			Usage: "turn the wheels right",
-			Action: func(c *cli.Context) error {
-				log.Println("rover turning right")
-
-				body := map[string]interface{}{
-					"turn": c.Int("degrees"),
-				}
-
-				err := requests.PostRequest(addr+"/move", body)
-				if err != nil {
-					return fmt.Errorf("make request: %v", err)
-				}
-
-				return nil
-			},
-		},
-	},
 	Action: func(c *cli.Context) error {
-		log.Printf("no direction passed (left/right)")
+		log.Println("rover turning")
+
+		body := map[string]interface{}{
+			"type":    "turn",
+			"degrees": c.Int("degrees"),
+		}
+
+		err := requests.PostRequest(addr+"/move", body)
+		if err != nil {
+			return fmt.Errorf("make request: %v", err)
+		}
+
 		return nil
 	},
 }
