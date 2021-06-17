@@ -4,7 +4,6 @@ import (
 	"log"
 	"os"
 
-	"github.com/joho/godotenv"
 	"github.com/urfave/cli/v2"
 )
 
@@ -25,13 +24,8 @@ func init() {
 	log.SetFlags(0)
 	log.SetPrefix("roverctl: ")
 
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatalln("failed to load .env file:", err)
-	}
-
-	ip = os.Getenv("IP")
-	port = os.Getenv("PORT")
+	ip = os.Getenv("ROVER_IP")
+	port = os.Getenv("ROVERD_PORT")
 
 	addr = ip + ":" + port
 }
