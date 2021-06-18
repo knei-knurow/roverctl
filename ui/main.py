@@ -1,4 +1,5 @@
 import tkinter as tk
+import handler
 
 window = tk.Tk()
 
@@ -21,10 +22,12 @@ frame.grid(row=1, column=0, padx=5, pady=5)
 
 btnGoForward = tk.Button(master=frame, text="go forward")
 btnGoForward.pack(padx=5, pady=5)
+btnGoForward.bind("<Button-1>", handler.handle_go)
 
 
 btnGoStop = tk.Button(master=frame, text="go stop")
 btnGoStop.pack(padx=5, pady=5)
+btnGoStop.bind("<Button-2>", handler.handle_go_stop)
 
 
 btnGoBackward = tk.Button(master=frame, text="go backward")
