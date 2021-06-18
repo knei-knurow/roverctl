@@ -49,7 +49,7 @@ def handle_go_backward(event: tk.Event):
     print(f"return code: {proc.returncode}")
 
 
-def handle_turn(degrees: int):
+def handle_turn(event: tk.Event):
     print(f"handle_go_turn")
     proc = subprocess.run(
         [
@@ -62,38 +62,42 @@ def handle_turn(degrees: int):
     print(f"return code: {proc.returncode}")
 
 
-window.rowconfigure(index=0, weight=1, minsize=50)
-window.columnconfigure(index=0, weight=1, minsize=75)
+# window.rowconfigure(index=0, weight=1, minsize=50)
+# window.columnconfigure(index=0, weight=1, minsize=75)
 
-frame1 = tk.Frame(master=window, relief=tk.RAISED, borderwidth=1)
-frame1.grid(row=0, column=0, padx=5, pady=5)
+frame0 = tk.Frame(master=window, relief=tk.RAISED, borderwidth=1)
+frame0.grid(row=0, column=0, padx=5, pady=5)
 
-
-label = tk.Label(master=frame1, text=f"GO commands")
+label = tk.Label(master=frame0, text=f"GO commands")
 label.pack(padx=5, pady=5)
-label = tk.Label(master=frame1, text=f"WARNING: \nalways stop when changing direction!")
+label = tk.Label(master=frame0, text=f"WARNING: \nalways stop when changing direction!")
 label.pack(padx=5, pady=5)
 
-window.rowconfigure(index=1, weight=1, minsize=50)
-window.columnconfigure(index=0, weight=1, minsize=75)
+# window.rowconfigure(index=1, weight=1, minsize=50)
+# window.columnconfigure(index=0, weight=1, minsize=75)
 
 # entrySpeed = tk.Entry(master=frame1, textvariable=speedVar, fg="red", width=10)
 
-frame1.grid(row=1, column=0, padx=5, pady=5)
-
-btnGoForward = tk.Button(master=frame1, text="go forward")
+btnGoForward = tk.Button(master=frame0, text="go forward")
 btnGoForward.pack(padx=5, pady=5)
 btnGoForward.bind("<Button-1>", handle_go_forward)
 
 
-btnGoStop = tk.Button(master=frame1, text="go stop")
-btnGoStop.pack(padx=5, pady=5)
-btnGoStop.bind("<Button-1>", handle_go_stop)
+btnTurn = tk.Button(master=frame0, text="go stop")
+btnTurn.pack(padx=5, pady=5)
+btnTurn.bind("<Button-1>", handle_go_stop)
 
 
-btnGoBackward = tk.Button(master=frame1, text="go backward")
+btnGoBackward = tk.Button(master=frame0, text="go backward")
 btnGoBackward.pack(padx=5, pady=5)
 btnGoBackward.bind("<Button-1>", handle_go_backward)
+
+btnTurn = tk.Button(master=frame0, text="turn")
+btnTurn.pack(padx=5, pady=5)
+btnTurn.bind("<Button-1>", handle_turn)
+
+# frame0 = tk.Frame(master=window, relief=tk.RAISED, borderwidth=1)
+# frame0.grid(row=0, column=1, padx=5, pady=5)
 
 
 window.mainloop()
