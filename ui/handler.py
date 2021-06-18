@@ -5,7 +5,8 @@ import subprocess
 
 def handle_go(event: tk.Event):
     print(f"handle_go")
-    subprocess.run(["./roverctl", "go", "--speed", "120", "forward"])
+    proc = subprocess.run(["./roverctl", "go", "--speed", "120", "forward"])
+    print(f"return code: {proc.returncode}")
 
 
 def handle_go_stop(event: tk.Event):

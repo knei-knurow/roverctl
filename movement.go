@@ -32,8 +32,6 @@ var goCommand = cli.Command{
 				return nil
 			},
 			Action: func(c *cli.Context) error {
-				log.Println("rover going forward")
-
 				body := map[string]interface{}{
 					"type":      "go",
 					"direction": "forward",
@@ -52,8 +50,6 @@ var goCommand = cli.Command{
 			Name:  "backward",
 			Usage: "move the rover backward",
 			Action: func(c *cli.Context) error {
-				log.Println("rover going backward")
-
 				body := map[string]interface{}{
 					"type":      "go",
 					"direction": "backward",
@@ -72,8 +68,6 @@ var goCommand = cli.Command{
 			Name:  "stop",
 			Usage: "stop the rover",
 			Action: func(c *cli.Context) error {
-				log.Println("rover stopping")
-
 				body := map[string]interface{}{
 					"type":      "go",
 					"direction": "stop",
@@ -107,8 +101,6 @@ var turnCommand = cli.Command{
 		},
 	},
 	Action: func(c *cli.Context) error {
-		log.Println("rover turning")
-
 		body := map[string]interface{}{
 			"type":    "turn",
 			"degrees": c.Int("degrees"),
