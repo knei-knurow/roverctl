@@ -24,8 +24,8 @@ func init() {
 	log.SetFlags(0)
 	log.SetPrefix("roverctl: ")
 
-	ip = os.Getenv("ROVER_IP")
-	port = os.Getenv("ROVERD_PORT")
+	ip = os.Getenv("ROVERCTL_ROVER_IP")
+	port = os.Getenv("ROVERCTL_ROVERD_PORT")
 
 	addr = ip + ":" + port
 	log.Println("addr:", addr)
