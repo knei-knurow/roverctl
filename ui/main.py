@@ -68,7 +68,6 @@ window.columnconfigure(index=0, weight=1, minsize=75)
 frame1 = tk.Frame(master=window, relief=tk.RAISED, borderwidth=1)
 frame1.grid(row=0, column=0, padx=5, pady=5)
 
-entrySpeed = tk.Entry(master=frame1, textvariable=speedVar)
 
 label = tk.Label(master=frame1, text=f"GO commands")
 label.pack(padx=5, pady=5)
@@ -78,7 +77,8 @@ label.pack(padx=5, pady=5)
 window.rowconfigure(index=1, weight=1, minsize=50)
 window.columnconfigure(index=0, weight=1, minsize=75)
 
-frame1 = tk.Frame(master=window, relief=tk.RAISED, borderwidth=1)
+# entrySpeed = tk.Entry(master=frame1, textvariable=speedVar, fg="red", width=10)
+
 frame1.grid(row=1, column=0, padx=5, pady=5)
 
 btnGoForward = tk.Button(master=frame1, text="go forward")
