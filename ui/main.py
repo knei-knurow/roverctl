@@ -21,7 +21,8 @@ def handle_go_forward(event: tk.Event):
             "forward",
         ]
     )
-    print(f"return code: {proc.returncode}")
+    proc
+    print(f"code: {proc.returncode}, args: {proc.args}")
 
 
 def handle_go_stop(event: tk.Event):
@@ -35,7 +36,7 @@ def handle_go_stop(event: tk.Event):
             "stop",
         ]
     )
-    print(f"return code: {proc.returncode}")
+    print(f"code: {proc.returncode}, args: {proc.args}")
 
 
 def handle_go_backward(event: tk.Event):
@@ -49,7 +50,7 @@ def handle_go_backward(event: tk.Event):
             "backward",
         ]
     )
-    print(f"return code: {proc.returncode}")
+    print(f"code: {proc.returncode}, args: {proc.args}")
 
 
 def handle_turn(event: tk.Event):
@@ -62,7 +63,7 @@ def handle_turn(event: tk.Event):
             f"{degreesVar.get()}",
         ]
     )
-    print(f"return code: {proc.returncode}")
+    print(f"code: {proc.returncode}, args: {proc.args}")
 
 
 # window.rowconfigure(index=0, weight=1, minsize=50)
