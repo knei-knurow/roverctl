@@ -1,46 +1,34 @@
 package main
 
 import (
-	"io"
 	"log"
 	"os"
-	"strconv"
 
-	"github.com/joho/godotenv"
-	"github.com/tarm/serial"
 	"github.com/urfave/cli/v2"
 )
 
-var port io.ReadWriteCloser
+var (
+	// IP of machine running roverd
+	ip string
+
+	// port on main computer on which roverd is running
+	port string
+)
+
+var (
+	// addr is ip + ":" + port
+	addr string
+)
 
 func init() {
 	log.SetFlags(0)
 	log.SetPrefix("roverctl: ")
-}
 
-func init() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatalln("failed to load .env file:", err)
-	}
+	ip = os.Getenv("ROVER_IP")
+	port = os.Getenv("ROVERD_PORT")
 
-	portName := os.Getenv("PORT_NAME")
-	baudRateStr := os.Getenv("BAUD_RATE")
-
-	baudRate, err := strconv.Atoi(baudRateStr)
-	if err != nil {
-		log.Fatalf("cannot read baud rate: %v\n", err)
-	}
-
-	config := &serial.Config{
-		Name: portName,
-		Baud: baudRate,
-	}
-
-	port, err = serial.OpenPort(config)
-	if err != nil {
-		log.Fatalf("cannot open port %s: %v\n", portName, err)
-	}
+	addr = ip + ":" + port
+	log.Println("addr:", addr)
 }
 
 func main() {

@@ -4,52 +4,9 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/knei-knurow/frames"
+	"github.com/knei-knurow/roverctl/requests"
 	"github.com/urfave/cli/v2"
 )
-
-var turnCommand = cli.Command{
-	Name:  "turn",
-	Usage: "turn motors using mounted servos. Bear in mind that the rover should be moving while turning",
-	Subcommands: []*cli.Command{
-		{
-			Name:  "left",
-			Usage: "turn the wheels left",
-			Action: func(c *cli.Context) error {
-				log.Println("rover turning left")
-
-				data := []byte{} // TODO: Make correct data
-				f := frames.Create([2]byte{'M', 'T'}, data)
-				_, err := port.Write(f)
-				if err != nil {
-					return fmt.Errorf("failed to write frame to port: %v", err)
-				}
-
-				return nil
-			},
-		},
-		{
-			Name:  "right",
-			Usage: "turn the wheels right",
-			Action: func(c *cli.Context) error {
-				log.Println("rover turning right")
-
-				data := []byte{} // TODO: Make correct data
-				f := frames.Create([2]byte{'M', 'T'}, data)
-				_, err := port.Write(f)
-				if err != nil {
-					return fmt.Errorf("failed to write frame to port: %v", err)
-				}
-
-				return nil
-			},
-		},
-	},
-	Action: func(c *cli.Context) error {
-		log.Printf("no direction passed (left/right)")
-		return nil
-	},
-}
 
 var goCommand = cli.Command{
 	Name:  "go",
@@ -63,7 +20,7 @@ var goCommand = cli.Command{
 			Name:    "speed",
 			Aliases: []string{"s"},
 			Value:   0,
-			Usage:   "some speed parameter (currently unused)",
+			Usage:   "some speed parameter",
 		},
 	},
 	Subcommands: []*cli.Command{
@@ -77,11 +34,15 @@ var goCommand = cli.Command{
 			Action: func(c *cli.Context) error {
 				log.Println("rover going forward")
 
-				data := []byte{} // TODO: Make correct data
-				f := frames.Create([2]byte{'M', 'T'}, data)
-				_, err := port.Write(f)
+				body := map[string]interface{}{
+					"type":      "go",
+					"direction": "forward",
+					"speed":     c.Int("speed"),
+				}
+
+				err := requests.PostRequest(addr+"/move", body)
 				if err != nil {
-					return fmt.Errorf("failed to write frame to port: %v", err)
+					return fmt.Errorf("make request: %v", err)
 				}
 
 				return nil
@@ -93,11 +54,35 @@ var goCommand = cli.Command{
 			Action: func(c *cli.Context) error {
 				log.Println("rover going backward")
 
-				data := []byte{} // TODO: Make correct data
-				f := frames.Create([2]byte{'M', 'T'}, data)
-				_, err := port.Write(f)
+				body := map[string]interface{}{
+					"type":      "go",
+					"direction": "backward",
+					"speed":     c.Int("speed"),
+				}
+
+				err := requests.PostRequest(addr+"/move", body)
 				if err != nil {
-					return fmt.Errorf("failed to write frame to port: %v", err)
+					return fmt.Errorf("make request: %v", err)
+				}
+
+				return nil
+			},
+		},
+		{
+			Name:  "stop",
+			Usage: "stop the rover",
+			Action: func(c *cli.Context) error {
+				log.Println("rover stopping")
+
+				body := map[string]interface{}{
+					"type":      "go",
+					"direction": "stop",
+					"speed":     255,
+				}
+
+				err := requests.PostRequest(addr+"/move", body)
+				if err != nil {
+					return fmt.Errorf("make request: %v", err)
 				}
 
 				return nil
@@ -106,6 +91,34 @@ var goCommand = cli.Command{
 	},
 	Action: func(c *cli.Context) error {
 		log.Printf("no direction passed (forward/backward)")
+		return nil
+	},
+}
+
+var turnCommand = cli.Command{
+	Name:  "turn",
+	Usage: "turn motors using mounted servos. Bear in mind that the rover should be moving while turning",
+	Flags: []cli.Flag{
+		&cli.IntFlag{
+			Name:    "degrees",
+			Aliases: []string{"d"},
+			Value:   0,
+			Usage:   "degrees",
+		},
+	},
+	Action: func(c *cli.Context) error {
+		log.Println("rover turning")
+
+		body := map[string]interface{}{
+			"type":    "turn",
+			"degrees": c.Int("degrees"),
+		}
+
+		err := requests.PostRequest(addr+"/move", body)
+		if err != nil {
+			return fmt.Errorf("make request: %v", err)
+		}
+
 		return nil
 	},
 }
