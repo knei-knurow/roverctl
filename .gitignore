@@ -1,7 +1,15 @@
-.vscode/
+# editors
 .idea/
+.vscode/
 
-/roverctl
-*.exe
+# misc files
 .DS_Store
 .env
+
+# log files
+*.log
+*.pid
+
+# generated binaries
+*.exe
+/roverctl

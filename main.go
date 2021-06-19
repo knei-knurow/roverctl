@@ -27,7 +27,7 @@ func init() {
 	ip = os.Getenv("ROVERCTL_ROVER_IP")
 	port = os.Getenv("ROVERCTL_ROVERD_PORT")
 
-	addr = ip + ":" + port
+	addr = "http://" + ip + ":" + port
 	log.Println("addr:", addr)
 }
 
