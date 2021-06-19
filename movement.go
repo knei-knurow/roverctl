@@ -40,7 +40,7 @@ var goCommand = cli.Command{
 
 				err := requests.PostRequest(addr+"/move", body)
 				if err != nil {
-					return fmt.Errorf("make request: %v", err)
+					return fmt.Errorf("make request (go forward): %v", err)
 				}
 
 				return nil
@@ -58,7 +58,7 @@ var goCommand = cli.Command{
 
 				err := requests.PostRequest(addr+"/move", body)
 				if err != nil {
-					return fmt.Errorf("make request: %v", err)
+					return fmt.Errorf("make request (go backward): %v", err)
 				}
 
 				return nil
@@ -71,12 +71,12 @@ var goCommand = cli.Command{
 				body := map[string]interface{}{
 					"type":      "go",
 					"direction": "stop",
-					"speed":     255,
+					"speed":     255, // must be 255 to stop
 				}
 
 				err := requests.PostRequest(addr+"/move", body)
 				if err != nil {
-					return fmt.Errorf("make request: %v", err)
+					return fmt.Errorf("make request (go stop): %v", err)
 				}
 
 				return nil

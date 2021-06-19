@@ -3,8 +3,8 @@ package requests
 import (
 	"bytes"
 	"encoding/json"
-	"errors"
 	"fmt"
+	"io"
 	"net/http"
 )
 
@@ -19,8 +19,13 @@ func PostRequest(endpointURL string, data map[string]interface{}) error {
 		return fmt.Errorf("http post: %v", err)
 	}
 
+	b, err := io.ReadAll(res.Body)
+	if err != nil {
+		return fmt.Errorf("read response body: %v", err)
+	}
+
 	if res.StatusCode != http.StatusOK {
-		return errors.New(res.Status)
+		return fmt.Errorf("post request failed: status: %d, body: %s", res.StatusCode, b)
 	}
 
 	return nil
