@@ -4,5 +4,5 @@
 # usage: "source ./src_env"
 
 cat .env | while read line; do
-    export $line
+    export "$line"
 done
