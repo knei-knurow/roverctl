@@ -6,7 +6,7 @@ Use `--help` to learn more about it.
 
 ## Frame formats
 
-We use our own [package frames](https://github.com/knei-knurow/lidar-tools/tree/master/frames) to construct frames we send through <interface> (USART? SPI?).
+We use our own [package frames](https://github.com/knei-knurow/frames) to construct frames we send through <interface> (USART? SPI?).
 
 Example frames below.
 
